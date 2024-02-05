@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8"
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stephan Leznikov - Resume</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/5bbe9fdfe0.js" crossorigin="anonymous"></script>
+</head>
+<body>
+<div id="header">
+    <div class="container">
+        <nav>
+            <img src="images/Ste-removebg-preview.png" class="logo">
+            <ul>
+                <li><a href="#header">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+        <div class="header-text">
+            <h1>Hi, I'm <span>Stephan</span></h1>
+        </div>
+    </div>
+</div> 
+<div id="about">
+    <div class="container">
+        <div class="row">
+            <div class="about-col-1">
+                <img src="images/IMG_6897.jpg">
+            </div>
+            <div class="about-col-2">
+                <h1 class="sub-title">About Me</h1>
+                <p>Hello there! I am a passionate second-year student at Queens University, immersed in the captivating world of computer science and software design. My academic journey is fueled by a relentless curiosity and a deep-seated enthusiasm for crafting innovative solutions to complex problems. Whether it's delving into algorithms, coding, or exploring the latest advancements in technology, I find joy in the challenge of turning ideas into functional and efficient software. Beyond the classroom, I am an avid problem solver and collaborator, always eager to engage in projects that push the boundaries of my skills and contribute to the dynamic field of technology. As I navigate through my academic pursuits, I am excited about the endless possibilities that lie ahead and the opportunity to make a meaningful impact in the realm of software development.
+                </p>
+                <div class="tab-titles">
+                    <p class="tab-links active-link" onclick="opentab('skills')">Skills</p>
+                    <p class="tab-links" onclick="opentab('education')">Education</p>
+                </div>
+                <div class="tab-contents active-tab" id="skills">
+                    <ul>
+                        <li><span>Object Orienated Design Theory</span><br>Proficient in OOP languages such as, Java, Python, Javascript/Node, C++, R.</li>
+                        <li><span>UI/UX</span><br>Designing Web/App interfaces using computer languages HTML, Javascript, and CSS.</li>
+                        <li><span>Machine Learning LLMs</span><br>Familiar with LLM models, such as Hugging Face, and GPT-4.</li>
+                        <li><span>SQL</span><br>Faimliar with MySQL, and PostgreSQL</li>
+                    </ul>
+                </div>
+                <div class="tab-contents" id="education">
+                    <ul>
+                        <li><span>Queen's University</span><br>Bachelors of Science <br> Computer Science / Software Design <br> 2022 - Current</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="portfolio">  
+    <div class="container">
+        <h1 class="sub-title">Portfolio</h1>
+        <div class="work-list">
+            <div class="work">
+                <img src="images/0eae83d6a6983eeb94887bb64ba99460.jpg">
+                <div class="layer">
+                    <h3>Checkers Game</h3>
+                    <a href="https://github.com/sleznikov/checkersGame"><button class="fa-solid fa-up-right-from-square"></button></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/2048_OG-logo.jpg">
+                <div class="layer">
+                    <h3>2048 Game</h3>
+                    <a href="https://github.com/sleznikov/2048game"><button class="fa-solid fa-up-right-from-square"></button></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/IMG_6898.jpg">
+                <div class="layer">
+                    <h3>Queen's AutoDrive</h3>
+                    <p>Played a crucial role in detecting and addressing potential
+                        system vulnerabilities by simulating complex real-world
+                        situations, ensuring the machine learning model's
+                        reliability in a variety of conditions. Wont be able to link GitHub because of NDA.</p>
+                    <a href="https://autodrive.engineering.queensu.ca/"><button class="fa-solid fa-up-right-from-square"></button></a>
+                </div>
+            </div>
+            <div class="work">
+                <img src="images/Stocks-market.jpg">
+                <div class="layer">
+                    <h3>Quantt Algorithm</h3>
+                    <p> Spearheaded the design and development of advanced
+                        quantitative machine learning models to analyze financial
+                        market trends, employing statistical methods and
+                        algorithms to generate actionable insights for investment
+                        strategies. Wont be able to link GitHub because of NDA.</p>
+                    <a href="http://quantt.ca/"><button class="fa-solid fa-up-right-from-square"></button></a>
+                </div>
+            </div>
+        </div>
+        <a href=""></a>
+    </div>
+</div>
+<div>
+    <div id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="contact-left">
+                    <h1 class="sub-title">Contact Me</h1>
+                    <p><i class="fa-solid fa-paper-plane"></i> sleznikov@gmail.com</p>
+                    <p><i class="fa-solid fa-phone"></i> 4168802241</p>
+                    <div class="social-icons">
+                        <a href="https://www.linkedin.com/in/stephanleznikov/"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="https://github.com/sleznikov"><i class="fa-brands fa-github"></i></i></a>
+                    </div>
+                    <a href="" class="btn btn2">Download CV</a>
+                </div>
+                <div class="contact-right">
+                    <form>
+                        <input type="text" name="Name" placeholder="Your Name" required>
+                        <input type="email" name="email" placeholder="Your Email" required>
+                        <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
+                        <button type="submit" class="btn btn2">Submit</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var tablinks = document.getElementsByClassName("tab-links");
+    var tabcontents = document.getElementsByClassName("tab-contents");
+    function opentab(tabname){
+        for(tablink of tablinks){
+            tablink.classList.remove("active-link");
+        }
+        for(tabcontent of tabcontents){
+            tabcontent.classList.remove("active-tab");
+        }
+        event.currentTarget.classList.add("active-link");
+        document.getElementById(tabname).classList.add("active-tab");
+    }
+</script>
+</body>
+</html>
