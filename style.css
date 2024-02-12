@@ -59,6 +59,7 @@ nav ul li a:hover::after{
 }
 .header-text{
     font-size: 30px;
+    margin-bottom: 20px;
 }
 .header-text h1{
     font-size: 60px;
@@ -86,9 +87,10 @@ nav ul li a:hover::after{
     flex-basis: 60%;
 }
 .sub-title{
-    font-size: 60px;
+    font-size: 40px;
     font-weight: 600;
     color: #fff;
+    margin-bottom: 10px;
 }
 .tab-titles{
     display: flex;
