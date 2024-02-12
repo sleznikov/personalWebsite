@@ -4,7 +4,7 @@
     <meta charset="UTF-8"
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stephan Leznikov - Resume</title>
+    <title>Stephan Leznikov</title>
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/5bbe9fdfe0.js" crossorigin="anonymous"></script>
 </head>
@@ -13,20 +13,22 @@
     <div class="container">
         <nav>
             <img src="images/Ste-removebg-preview.png" class="logo">
-            <ul>
+            <ul id="sidemenu">
                 <li><a href="#header">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#portfolio">Portfolio</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <i class="fa-solid fa-x" onclick="closemenu()"></i>
             </ul>
+            <i class="fa-solid fa-bars" onclick="openmenu()"></i>
         </nav>
-        <div class="header-text">
-            <h1><br>Hi, I'm <span>Stephan</span></h1>
-        </div>
     </div>
 </div> 
 <div id="about">
     <div class="container">
+        <div class="header-text">
+            <h1>Hi, I'm <span>Stephan<br></span></h1>
+        </div>
         <div class="row">
             <div class="about-col-1">
                 <img src="images/IMG_6897.jpg">
@@ -43,7 +45,7 @@
                     <ul>
                         <li><span>Object Orienated Design Theory</span><br>Proficient in OOP languages such as, Java, Python, Javascript/Node, C++, R.</li>
                         <li><span>UI/UX</span><br>Designing Web/App interfaces using computer languages HTML, Javascript, and CSS.</li>
-                        <li><span>Machine Learning LLMs</span><br>Familiar with LLM models, such as GPT-4.</li>
+                        <li><span>Machine Learning LLMs</span><br>Familiar with LLM models, such as Hugging Face, and GPT-4.</li>
                         <li><span>SQL</span><br>Familiar with MySQL, and PostgreSQL.</li>
                     </ul>
                 </div>
@@ -140,6 +142,17 @@
         }
         event.currentTarget.classList.add("active-link");
         document.getElementById(tabname).classList.add("active-tab");
+    }
+</script>
+<script>
+    var sidemenu = document.getElementById("sidemenu")
+
+    function openmenu(){
+        sidemenu.style.right= "0";
+
+    }
+    function closemenu(){
+        sidemenu.style.right= "-200px";
     }
 </script>
 </body>
