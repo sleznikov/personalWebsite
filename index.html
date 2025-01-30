@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8"
+    <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stephan Leznikov</title>
@@ -23,7 +23,7 @@
             <i class="fa-solid fa-bars" onclick="openmenu()"></i>
         </nav>
     </div>
-</div> 
+</div>
 <div id="about">
     <div class="container">
         <div class="header-text">
@@ -43,7 +43,7 @@
                 </div>
                 <div class="tab-contents active-tab" id="skills">
                     <ul>
-                        <li><span>Object Orienated Design Theory</span><br>Proficient in OOP languages such as, Java, Python, Javascript/Node, C++, R.</li>
+                        <li><span>Object Oriented Design Theory</span><br>Proficient in OOP languages such as, Java, Python, Javascript/Node, C++, R.</li>
                         <li><span>UI/UX</span><br>Designing Web/App interfaces using computer languages HTML, Javascript, and CSS.</li>
                         <li><span>Machine Learning LLMs</span><br>Familiar with LLM models, such as Hugging Face, and GPT-4.</li>
                         <li><span>SQL</span><br>Familiar with MySQL, and PostgreSQL.</li>
@@ -58,7 +58,7 @@
         </div>
     </div>
 </div>
-<div id="portfolio">  
+<div id="portfolio">
     <div class="container">
         <h1 class="sub-title">Portfolio</h1>
         <div class="work-list">
@@ -91,11 +91,11 @@
                 <img src="images/Stocks-market.jpg">
                 <div class="layer">
                     <h3>StatZone</h3>
-                    <p> Developed an innovative sports analyst chatbot utilizing 
-                        the OpenAI API to harness natural language processing for 
-                        real-time insights into team performances, player statistics, 
-                        and game strategies. Integrated advanced machine learning models 
-                        and data analytics to interpret trends and predict outcomes, 
+                    <p> Developed an innovative sports analyst chatbot utilizing
+                        the OpenAI API to harness natural language processing for
+                        real-time insights into team performances, player statistics,
+                        and game strategies. Integrated advanced machine learning models
+                        and data analytics to interpret trends and predict outcomes,
                         offering users in-depth analyses and actionable predictions. </p>
                     <a href="https://github.com/sleznikov/StatZone_OpenAI"><button class="fa-solid fa-up-right-from-square"></button></a>
                 </div>
@@ -114,7 +114,7 @@
                     <p><i class="fa-solid fa-phone"></i> 4168802241</p>
                     <div class="social-icons">
                         <a href="https://www.linkedin.com/in/stephanleznikov/"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://github.com/sleznikov"><i class="fa-brands fa-github"></i></i></a>
+                        <a href="https://github.com/sleznikov"><i class="fa-brands fa-github"></i></a>
                     </div>
                     <a href="Stephan Leznikov - CV.pdf" download="Stephan Leznikov - CV" class="btn btn2">Download CV</a>
                 </div>
@@ -134,11 +134,11 @@
 <script>
     var tablinks = document.getElementsByClassName("tab-links");
     var tabcontents = document.getElementsByClassName("tab-contents");
-    function opentab(tabname){
-        for(tablink of tablinks){
+    function opentab(tabname) {
+        for (tablink of tablinks) {
             tablink.classList.remove("active-link");
         }
-        for(tabcontent of tabcontents){
+        for (tabcontent of tabcontents) {
             tabcontent.classList.remove("active-tab");
         }
         event.currentTarget.classList.add("active-link");
@@ -146,14 +146,14 @@
     }
 </script>
 <script>
-    var sidemenu = document.getElementById("sidemenu")
+    var sidemenu = document.getElementById("sidemenu");
 
-    function openmenu(){
-        sidemenu.style.right= "0";
-
+    function openmenu() {
+        sidemenu.style.right = "0";
     }
-    function closemenu(){
-        sidemenu.style.right= "-200px";
+
+    function closemenu() {
+        sidemenu.style.right = "-200px";
     }
 </script>
 </body>
