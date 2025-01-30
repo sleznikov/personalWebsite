@@ -23,7 +23,8 @@ body {
 }
 
 .container {
-    padding: 50px 10%;
+    padding: 50px 5%; /* Reduced side padding for better use of space */
+    width: 100%; /* Ensure container spans the full width */
 }
 
 nav {
@@ -75,6 +76,7 @@ nav ul li a:hover::after {
 
 .header-text h1 {
     font-size: 60px;
+    margin-top: 20px;
 }
 
 .header-text h1 span {
@@ -82,7 +84,7 @@ nav ul li a:hover::after {
 }
 
 #about {
-    padding: 10px 0;
+    padding: 80px 5%; /* Reduced side padding */
     color: #ababab;
 }
 
@@ -97,7 +99,7 @@ nav ul li a:hover::after {
 }
 
 .about-col-1 img {
-    width: 75%;
+    width: 100%;
     border-radius: 15px;
 }
 
@@ -109,7 +111,7 @@ nav ul li a:hover::after {
     font-size: 50px;
     font-weight: 600;
     color: #fff;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
 }
 
 .tab-titles {
@@ -159,12 +161,12 @@ nav ul li a:hover::after {
 }
 
 #portfolio {
-    padding: 50px 0;
+    padding: 80px 5%; /* Reduced side padding */
 }
 
 .work-list {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     grid-gap: 40px;
     margin-top: 50px;
 }
@@ -319,7 +321,7 @@ nav .fa-solid {
     }
 
     .logo {
-        width: 300px;
+        width: 100px;
     }
 
     .header-text {
@@ -334,6 +336,7 @@ nav .fa-solid {
     nav .fa-solid {
         display: block;
         font-size: 25px;
+        cursor: pointer;
     }
 
     nav ul {
