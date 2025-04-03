@@ -84,6 +84,8 @@ nav ul li a:hover::after {
 }
 
 #about {
+    margin-top: -50px; /* Pull the about section up to remove gap */
+    padding-top: 50px; /* Add padding to compensate for the negative margin */
     padding: 80px 5%; /* Reduced side padding */
     color: #ababab;
 }
@@ -381,5 +383,48 @@ nav .fa-solid {
     .contact-left,
     .contact-right {
         flex-basis: 100%;
+    }
+}
+
+#typing-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 50vh; /* Changed from height: 100vh to reduce the section height */
+    background: #080808;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+.code-box {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 36px; /* Increased font size */
+    color: #03cffc;
+    background: #262626;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    width: fit-content;
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.cursor {
+    display: inline-block;
+    background: #03cffc;
+    width: 8px; /* Reduced width for a sleeker look */
+    height: 1.26em; /* Adjusted height to align with text */
+    margin-left: 5px;
+    animation: blink 0.7s steps(2, start) infinite;
+    vertical-align: bottom; /* Aligns the cursor with the text baseline */
+}
+
+@keyframes blink {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0;
     }
 }

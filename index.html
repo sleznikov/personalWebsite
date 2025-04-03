@@ -24,11 +24,13 @@
         </nav>
     </div>
 </div>
+<div id="typing-animation">
+    <div class="code-box">
+        <span id="typed-text"></span><span class="cursor">|</span>
+    </div>
+</div>
 <div id="about">
     <div class="container">
-        <div class="header-text">
-            <h1>Hi, I'm <span>Stephan<br></span></h1>
-        </div>
         <div class="row">
             <div class="about-col-1">
                 <img src="images/FullSizeRender.jpg">
@@ -155,6 +157,22 @@
     function closemenu() {
         sidemenu.style.right = "-200px";
     }
+</script>
+<script>
+    // Typing animation script
+    const text = "Hi, I'm Stephan Leznikov the next generation of AI engineering.";
+    let index = 0;
+    const speed = 100; // Typing speed in milliseconds
+
+    function typeText() {
+        if (index < text.length) {
+            document.getElementById("typed-text").textContent += text.charAt(index);
+            index++;
+            setTimeout(typeText, speed);
+        }
+    }
+
+    window.onload = typeText;
 </script>
 </body>
 </html>
