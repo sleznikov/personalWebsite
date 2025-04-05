@@ -262,7 +262,7 @@ nav ul li a:hover::after {
     transition: transform 0.5s;
 }
 
-.social-icons a:hover {
+social-icons a:hover {
     color: #03cffc;
     transform: translateY(-5px);
 }
@@ -384,40 +384,60 @@ nav .fa-solid {
     .contact-right {
         flex-basis: 100%;
     }
+
+    #typing-animation {
+        min-height: 40vh; /* Reduce height for smaller screens */
+        padding: 10px; /* Adjust padding for smaller screens */
+    }
+
+    .code-box {
+        font-size: 4vw; /* Adjust font size for smaller screens */
+        padding: 15px 20px; /* Adjust padding for smaller screens */
+        max-width: 90%; /* Ensure it fits within the screen */
+    }
+
+    .cursor {
+        width: 2px; /* Adjust cursor width for smaller screens */
+        height: 0.9em; /* Adjust cursor height */
+    }
 }
 
 #typing-animation {
     display: flex;
     justify-content: center;
     align-items: center;
-    min-height: 50vh; /* Changed from height: 100vh to reduce the section height */
+    min-height: 50vh; /* Ensure it fits within the screen */
     background: #080808;
     margin: 0;
-    padding: 0;
+    padding: 0 20px; /* Add horizontal padding to prevent overflow */
     position: relative;
 }
 
 .code-box {
     font-family: 'Courier New', Courier, monospace;
-    font-size: 36px; /* Increased font size */
+    font-size: 2.5vw; /* Adjusted font size for better fit */
     color: #03cffc;
-    background: #262626;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-    width: fit-content;
-    white-space: nowrap;
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a); /* Subtle gradient for modern look */
+    padding: 20px 30px; /* Adjusted padding for better spacing */
+    border-radius: 12px; /* Smooth rounded corners */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.6); /* Enhanced shadow for depth */
+    width: 90%; /* Ensure it fits within the container */
+    max-width: 700px; /* Limit the maximum width */
+    white-space: normal; /* Allow text to wrap naturally */
+    text-align: center; /* Center-align the text */
     overflow: hidden;
+    border: 1px solid #03cffc; /* Add a border for better definition */
+    line-height: 1.5; /* Improve line spacing for readability */
 }
 
 .cursor {
     display: inline-block;
     background: #03cffc;
-    width: 8px; /* Reduced width for a sleeker look */
-    height: 1.26em; /* Adjusted height to align with text */
-    margin-left: 5px;
-    animation: blink 0.7s steps(2, start) infinite;
-    vertical-align: bottom; /* Aligns the cursor with the text baseline */
+    width: 7px; /* Sleeker width */
+    height: 1.29em; /* Adjusted height for better alignment with text */
+    margin-left: 3px; /* Slightly increased margin for spacing */
+    animation: blink 0.6s steps(2, start) infinite; /* Faster blinking for smoother effect */
+    vertical-align: text-bottom; /* Aligns cursor with the text baseline */
 }
 
 @keyframes blink {
