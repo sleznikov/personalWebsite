@@ -333,11 +333,14 @@ nav ul li a:hover {
     background: #fff;
     width: 48px;
     height: 48px;
+    min-width: 48px;
+    min-height: 48px;
     border-radius: 50%;
     text-align: center;
     display: flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     transition: transform 0.3s;
 }
 
