@@ -2,197 +2,65 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Stephan Leznikov</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
     <script src="https://kit.fontawesome.com/5bbe9fdfe0.js" crossorigin="anonymous"></script>
 </head>
 <body>
-<div id="hero-wrapper">
-    <header id="header">
-        <div class="container">
-            <nav>
-                <img src="images/Ste-removebg-preview.png" class="logo" alt="Stephan Leznikov">
-                <ul id="sidemenu">
-                    <li><a href="#header">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                    <i class="fa-solid fa-x" onclick="closemenu()"></i>
-                </ul>
-                <i class="fa-solid fa-bars" onclick="openmenu()"></i>
-            </nav>
+    <div id="xmb">
+        <!-- Background layers -->
+        <div class="xmb-bg" aria-hidden="true">
+            <div class="xmb-bg-image"></div>
+            <div class="xmb-bg-overlay"></div>
+            <div class="xmb-bg-wave xmb-wave-1"></div>
+            <div class="xmb-bg-wave xmb-wave-2"></div>
+            <div class="xmb-bg-wave xmb-wave-3"></div>
         </div>
-    </header>
-    <div id="typing-animation">
-        <div class="code-box">
-            <span id="typed-text"></span><span class="cursor"></span>
-        </div>
+
+        <!-- Top header bar -->
+        <header class="xmb-header">
+            <img src="images/SL Logo.png" alt="Stephan Leznikov" class="xmb-header-logo">
+            <span class="xmb-header-clock" id="xmb-clock"></span>
+        </header>
+
+        <!-- XMB cross navigation -->
+        <main class="xmb-cross" id="xmb-cross">
+            <!-- Horizontal category icons -->
+            <div class="xmb-categories" id="xmb-categories" role="tablist" aria-label="Categories"></div>
+
+            <!-- Category label -->
+            <div class="xmb-cat-label" id="xmb-cat-label" aria-live="polite"></div>
+
+            <!-- Vertical items list -->
+            <div class="xmb-items-region" id="xmb-items-region">
+                <div class="xmb-items" id="xmb-items" role="listbox" aria-label="Items"></div>
+            </div>
+
+            <!-- Item preview -->
+            <div class="xmb-preview" id="xmb-preview" aria-live="polite"></div>
+        </main>
+
+        <!-- Content panel (slides in from right) -->
+        <aside class="xmb-content" id="xmb-content" aria-hidden="true">
+            <button class="xmb-back" id="xmb-back" aria-label="Go back">
+                <i class="fa-solid fa-arrow-left"></i> Back
+            </button>
+            <div class="xmb-content-body" id="xmb-content-body"></div>
+        </aside>
+
+        <!-- Footer navigation hints -->
+        <footer class="xmb-footer" id="xmb-footer">
+            <span class="xmb-hint xmb-hint--desktop"><kbd>&larr;</kbd><kbd>&rarr;</kbd> Navigate</span>
+            <span class="xmb-hint xmb-hint--desktop"><kbd>&uarr;</kbd><kbd>&darr;</kbd> Browse</span>
+            <span class="xmb-hint xmb-hint--desktop"><kbd>&crarr;</kbd> Open</span>
+            <span class="xmb-hint xmb-hint--mobile">Swipe to navigate &bull; Tap to open</span>
+        </footer>
     </div>
-</div>
-<section id="about">
-    <div class="row">
-        <div class="about-col-1">
-            <img src="images/FullSizeRender.jpg" alt="Stephan Leznikov">
-        </div>
-        <div class="about-col-2">
-            <h2 class="sub-title">About Me</h2>
-            <p>Hello there! I'm Stephan, a Computer Science and AI student at Queen's University with a hands-on approach to building intelligent systems. Currently, I'm working as an AI/Machine Learning Intern at Kyndryl, where I designed and developed an AI-powered document validation and data extraction system that automated a client's mortgage application review process, effectively doubling their application throughput. From deep learning models and NLP pipelines to full-stack web apps, I love taking an idea from concept to production. I'm always looking for the next challenging problem to solve, whether that's training a neural network, architecting a clean API, or collaborating with a team to ship something meaningful.
-            </p>
-                <div class="tab-titles">
-                    <p class="tab-links active-link" onclick="opentab('experience')">Experience</p>
-                    <p class="tab-links" onclick="opentab('skills')">Skills</p>
-                    <p class="tab-links" onclick="opentab('education')">Education</p>
-                </div>
-                <div class="tab-contents active-tab" id="experience">
-                    <ul>
-                        <li><span>Kyndryl - AI / Machine Learning Intern</span><br>May 2025 – August 2026<br><br>Designed and developed an AI-powered document validation and data extraction system for a client's mortgage application process. The solution automated the review of supporting documents submitted by applicants, significantly reducing manual workload for reviewers and enabling the client to effectively double their mortgage application throughput.<br><br>Engaged directly with the client throughout the project lifecycle, gathering requirements, presenting progress updates, and iterating on deliverables to ensure alignment with business objectives.</li>
-                    </ul>
-                </div>
-                <div class="tab-contents" id="skills">
-                    <ul>
-                        <li><span>Programming Languages</span><br>Strong command of Java, Python, JavaScript/Node.js, C++, and R with a focus on clean, object-oriented architecture and scalable design patterns.</li>
-                        <li><span>AI & Machine Learning</span><br>Hands-on experience building and fine-tuning deep learning models, leveraging frameworks such as TensorFlow, PyTorch, and Hugging Face Transformers. Proficient in LLM integration, prompt engineering, and deploying AI-driven solutions in production environments.</li>
-                        <li><span>Full-Stack Web Development</span><br>End-to-end development of responsive web applications using HTML, CSS, JavaScript, and modern frameworks. Strong eye for intuitive UI/UX design and performance optimization.</li>
-                        <li><span>Data & Cloud Infrastructure</span><br>Proficient in SQL (MySQL, PostgreSQL) for complex data modeling and querying. Experienced with cloud platforms and CI/CD workflows for reliable, automated deployments.</li>
-                        <li><span>Developer Tools & Workflow</span><br>Skilled with Git version control, RESTful API design, Agile methodologies, and collaborative development in cross-functional teams.</li>
-                    </ul>
-                </div>
-                <div class="tab-contents" id="education">
-                    <ul>
-                        <li><span>Queen's University</span><br>Bachelors of Science <br> Computer Science / Artificial Intelligence <br> 2022 - Current</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-</section>
-<section id="portfolio">
-    <div class="container">
-        <h2 class="sub-title">Portfolio</h2>
-        <div class="work-list">
-            <div class="work">
-                <img src="images/habitat.jpg">
-                <div class="layer">
-                    <h3>Document Validator & Extractor</h3>
-                    <p>AI-powered document validation and data extraction system deployed on Azure Functions. Processes documents and transmits extracted data to Salesforce for centralized management.</p>
-                    <a href="#"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/IMG_6898.jpg">
-                <div class="layer">
-                    <h3>Queen's AutoDrive</h3>
-                    <p>Played a crucial role in detecting and addressing potential
-                        system vulnerabilities by simulating complex real-world
-                        situations, ensuring the machine learning model's
-                        reliability in a variety of conditions.</p>
-                    <a href="https://autodrive.engineering.queensu.ca/"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/food classifier.jpg">
-                <div class="layer">
-                    <h3>Food Classifier</h3>
-                    <p>Deep learning model using MobileNetV2 transfer learning to classify 41 food categories with 85-90% accuracy. Features data augmentation, GPU optimization, and TensorBoard monitoring.</p>
-                    <a href="https://github.com/sleznikov/food-classifier"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/Stocks-market.jpg">
-                <div class="layer">
-                    <h3>StatZone</h3>
-                    <p>Sports analyst chatbot utilizing the OpenAI API for real-time
-                        insights into team performances, player statistics, and game
-                        strategies. Integrated advanced machine learning models and
-                        data analytics to predict outcomes.</p>
-                    <a href="https://github.com/sleznikov/StatZone_OpenAI"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/sentiment analysis.jpg">
-                <div class="layer">
-                    <h3>Sentiment Analysis</h3>
-                    <p>Advanced NLP system combining Random Forest ML with rule-based analysis. Features negation detection, intensity modifiers, and sentiment lexicon integration for nuanced text classification.</p>
-                    <a href="https://github.com/sleznikov/sentiment-analysis-tool"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-            <div class="work">
-                <img src="images/unity game.png">
-                <div class="layer">
-                    <h3>2D Platformer</h3>
-                    <p>A 2D platformer game built with Unity and C#, featuring custom shaders and platform mechanics.</p>
-                    <a href="https://github.com/sleznikov/Unity-Game"><button class="fa-solid fa-up-right-from-square"></button></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section id="contact">
-    <div class="row">
-        <div class="contact-left">
-            <h2 class="sub-title">Contact Me</h2>
-                    <p><i class="fa-solid fa-paper-plane"></i> sleznikov@gmail.com</p>
-                    <p><i class="fa-solid fa-phone"></i> 416-880-2241</p>
-                    <div class="social-icons">
-                        <a href="https://www.linkedin.com/in/stephanleznikov/"><i class="fa-brands fa-linkedin"></i></a>
-                        <a href="https://github.com/sleznikov"><i class="fa-brands fa-github"></i></a>
-                    </div>
-                    <a href="Stephan Leznikov - CV.pdf" download="Stephan Leznikov - CV" class="btn btn2">Download CV</a>
-        </div>
-        <div class="contact-right">
-            <form>
-                <input type="text" name="Name" placeholder="Your Name" required>
-                <input type="email" name="email" placeholder="Your Email" required>
-                <textarea name="Message" rows="6" placeholder="Your Message"></textarea>
-                <button type="submit" class="btn btn2">Submit</button>
-            </form>
-        </div>
-    </div>
-</section>
 
-<script>
-    var tablinks = document.getElementsByClassName("tab-links");
-    var tabcontents = document.getElementsByClassName("tab-contents");
-    function opentab(tabname) {
-        for (tablink of tablinks) {
-            tablink.classList.remove("active-link");
-        }
-        for (tabcontent of tabcontents) {
-            tabcontent.classList.remove("active-tab");
-        }
-        event.currentTarget.classList.add("active-link");
-        document.getElementById(tabname).classList.add("active-tab");
-    }
-</script>
-<script>
-    var sidemenu = document.getElementById("sidemenu");
-
-    function openmenu() {
-        sidemenu.style.right = "0";
-    }
-
-    function closemenu() {
-        sidemenu.style.right = "-250px";
-    }
-</script>
-<script>
-    // Typing animation script
-    const text = "Hi, I'm Stephan Leznikov the next generation of AI engineering.";
-    let index = 0;
-    const speed = 100; // Typing speed in milliseconds
-
-    function typeText() {
-        if (index < text.length) {
-            document.getElementById("typed-text").textContent += text.charAt(index);
-            index++;
-            setTimeout(typeText, speed);
-        }
-    }
-
-    window.onload = typeText;
-</script>
+    <script src="xmb.js"></script>
 </body>
 </html>
