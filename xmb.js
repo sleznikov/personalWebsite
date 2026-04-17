@@ -48,6 +48,24 @@
                             typeWriter(el, "Hi, I'm Stephan Leznikov the next generation of AI engineering.", TYPEWRITER_SPEED);
                         }
                     }
+                },
+                {
+                    id: 'why',
+                    icon: 'fa-solid fa-gamepad',
+                    label: 'Why this layout?',
+                    preview: 'The inspiration behind the PS3 XMB design',
+                    getContent: function () {
+                        return '<div>' +
+                            '<h2 class="xc-title">Why this layout?</h2>' +
+                            '<div class="xc-card">' +
+                                '<h3>A tribute to the PS3 XMB</h3>' +
+                                '<div class="xc-card-date">Where it all began</div>' +
+                                '<p>Every developer has a moment that lights the spark. Mine was the soft blue glow of a PlayStation 3 when I was a kid, watching its iconic XMB (XrossMediaBar) flow seamlessly between games, music, and videos. That interface felt like magic, pixels dancing to my every command. It wasn\'t just a menu; it was a window into how thoughtful design can make technology feel alive.</p>' +
+                                '<p>Years later, learning to code became my way of asking the question I had been asking since I was seven: how did they do that? Every line of JavaScript and every CSS transition I write is a small step toward answering it. Rebuilding the XMB here isn\'t nostalgia. It\'s a tribute. A reminder that behind every polished interface is a kid somewhere discovering their passion for the first time.</p>' +
+                                '<p>This website is my way of turning that childhood wonder into something real, of proving to my younger self that the magic he saw on screen was never out of reach. It was a craft waiting to be learned. Welcome to the intersection of inspiration and engineering, the place where a lifelong curiosity becomes a career.</p>' +
+                            '</div>' +
+                        '</div>';
+                    }
                 }
             ]
         },
