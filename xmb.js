@@ -5,8 +5,6 @@
        CONFIGURATION
        ═══════════════════════════════════════════════════════════ */
 
-    var ITEM_H = 52;
-    var CAT_W = 140;
     var TRANSITION_MS = 400;
     var SWIPE_THRESHOLD = 35;
     var WHEEL_DEBOUNCE = 250;
@@ -158,6 +156,7 @@
             items: [
                 {
                     id: 'docval',
+                    icon: 'fa-solid fa-file-shield',
                     thumb: 'images/habitat.jpg',
                     label: 'Document Validator & Extractor',
                     preview: 'AI-powered document validation and data extraction system deployed on Azure Functions',
@@ -173,6 +172,7 @@
                 },
                 {
                     id: 'autodrive',
+                    icon: 'fa-solid fa-car',
                     thumb: 'images/IMG_6898.jpg',
                     label: "Queen's AutoDrive",
                     preview: 'Simulating real-world situations to ensure ML model reliability',
@@ -189,6 +189,7 @@
                 },
                 {
                     id: 'foodclassifier',
+                    icon: 'fa-solid fa-utensils',
                     thumb: 'images/food classifier.jpg',
                     label: 'Food Classifier',
                     preview: 'Deep learning model classifying 41 food categories with 85-90% accuracy',
@@ -205,6 +206,7 @@
                 },
                 {
                     id: 'statzone',
+                    icon: 'fa-solid fa-chart-line',
                     thumb: 'images/Stocks-market.jpg',
                     label: 'StatZone',
                     preview: 'Sports analyst chatbot powered by OpenAI API',
@@ -221,6 +223,7 @@
                 },
                 {
                     id: 'sentiment',
+                    icon: 'fa-solid fa-brain',
                     thumb: 'images/sentiment analysis.jpg',
                     label: 'Sentiment Analysis',
                     preview: 'Advanced NLP system combining Random Forest ML with rule-based analysis',
@@ -237,6 +240,7 @@
                 },
                 {
                     id: 'platformer',
+                    icon: 'fa-solid fa-gamepad',
                     thumb: 'images/unity game.png',
                     label: '2D Platformer',
                     preview: 'A 2D platformer game built with Unity and C#',
@@ -318,7 +322,6 @@
         transitioning: false
     };
 
-    // Initialize per-category item indices
     for (var i = 0; i < CATEGORIES.length; i++) {
         state.itemIndex.push(0);
     }
@@ -329,10 +332,7 @@
 
     var dom = {
         xmb: document.getElementById('xmb'),
-        categories: document.getElementById('xmb-categories'),
-        catLabel: document.getElementById('xmb-cat-label'),
-        itemsRegion: document.getElementById('xmb-items-region'),
-        items: document.getElementById('xmb-items'),
+        bar: document.getElementById('xmb-bar'),
         content: document.getElementById('xmb-content'),
         contentBody: document.getElementById('xmb-content-body'),
         cross: document.getElementById('xmb-cross'),
@@ -342,119 +342,137 @@
     };
 
     /* ═══════════════════════════════════════════════════════════
-       RENDERING — CATEGORIES
+       RESPONSIVE HELPERS
        ═══════════════════════════════════════════════════════════ */
 
-    function renderCategories() {
-        dom.categories.innerHTML = '';
-        for (var i = 0; i < CATEGORIES.length; i++) {
-            var cat = CATEGORIES[i];
-            var el = document.createElement('div');
-            el.className = 'xmb-cat' + (i === state.catIndex ? ' active' : '');
-            el.setAttribute('role', 'tab');
-            el.setAttribute('aria-selected', i === state.catIndex ? 'true' : 'false');
-            el.setAttribute('data-index', i);
-            el.innerHTML =
-                '<i class="xmb-cat-i ' + cat.icon + '"></i>' +
-                '<i class="xmb-cat-reflect ' + cat.icon + '" aria-hidden="true"></i>';
-            dom.categories.appendChild(el);
-        }
-        updateCategoryPositions();
-        updateCatLabel();
-    }
-
-    function updateCategoryPositions() {
-        var centerX = window.innerWidth / 2;
-        var w = getCatWidth();
-        var offset = centerX - (state.catIndex * w) - (w / 2);
-        dom.categories.style.transform = 'translateX(' + offset + 'px)';
-
-        var icons = dom.categories.children;
-        for (var i = 0; i < icons.length; i++) {
-            var dist = Math.abs(i - state.catIndex);
-            var isActive = dist === 0;
-            icons[i].className = 'xmb-cat' + (isActive ? ' active' : '');
-            icons[i].setAttribute('aria-selected', isActive ? 'true' : 'false');
-            icons[i].style.opacity = isActive ? 1 : Math.max(0.15, 0.5 - dist * 0.12);
-        }
-    }
-
-    function updateCatLabel() {
-        dom.catLabel.textContent = CATEGORIES[state.catIndex].label;
-    }
-
     function getCatWidth() {
-        if (window.innerWidth <= 480) return 80;
-        if (window.innerWidth <= 768) return 100;
-        return CAT_W;
+        if (window.innerWidth <= 480) return 75;
+        if (window.innerWidth <= 768) return 90;
+        return 120;
     }
 
     function getItemHeight() {
-        if (window.innerWidth <= 768) return 48;
-        if (window.innerHeight <= 600) return 44;
-        return ITEM_H;
+        // Vertical distance between stacked sub-items. Must comfortably
+        // clear the selected icon (56px) + label (14px) + gap, so stacked
+        // neighbours don't overlap the focal glyph.
+        if (window.innerWidth <= 480) return 60;
+        if (window.innerWidth <= 768) return 72;
+        if (window.innerHeight <= 600) return 72;
+        return 90;
     }
 
     /* ═══════════════════════════════════════════════════════════
-       RENDERING — ITEMS
+       RENDERING — builds all columns with their items
        ═══════════════════════════════════════════════════════════ */
 
-    function renderItems() {
-        var cat = CATEGORIES[state.catIndex];
-        dom.items.innerHTML = '';
-        for (var i = 0; i < cat.items.length; i++) {
-            var item = cat.items[i];
-            var el = document.createElement('div');
-            el.className = 'xmb-item';
-            el.setAttribute('role', 'option');
-            el.setAttribute('data-index', i);
+    function renderBar() {
+        dom.bar.innerHTML = '';
 
-            var inner = '';
-            if (item.thumb) {
-                inner += '<img class="xmb-item-thumb" src="' + item.thumb + '" alt="">';
-            } else if (item.icon) {
-                inner += '<i class="xmb-item-icon ' + item.icon + '"></i>';
+        for (var c = 0; c < CATEGORIES.length; c++) {
+            var cat = CATEGORIES[c];
+
+            var col = document.createElement('div');
+            col.className = 'xmb-col';
+            col.setAttribute('data-cat', c);
+
+            // Top: icon + label
+            var top = document.createElement('div');
+            top.className = 'xmb-col-top';
+            top.innerHTML =
+                '<i class="xmb-col-icon ' + cat.icon + '"></i>' +
+                '<span class="xmb-col-label">' + cat.label + '</span>';
+            col.appendChild(top);
+
+            // Items
+            var itemsDiv = document.createElement('div');
+            itemsDiv.className = 'xmb-col-items';
+
+            for (var j = 0; j < cat.items.length; j++) {
+                var item = cat.items[j];
+                var itemEl = document.createElement('div');
+                itemEl.className = 'xmb-sub-item';
+                itemEl.setAttribute('data-item', j);
+                itemEl.setAttribute('data-cat', c);
+
+                var iconClass = item.icon || 'fa-solid fa-circle';
+                itemEl.innerHTML =
+                    '<i class="xmb-sub-icon ' + iconClass + '"></i>' +
+                    '<span class="xmb-sub-label">' + item.label + '</span>';
+
+                itemsDiv.appendChild(itemEl);
             }
-            inner += '<span class="xmb-item-label">' + item.label + '</span>';
-            el.innerHTML = inner;
-            dom.items.appendChild(el);
+
+            col.appendChild(itemsDiv);
+            dom.bar.appendChild(col);
         }
-        updateItemPositions();
+
+        updatePositions();
         updatePreview();
     }
 
-    function updateItemPositions() {
-        var idx = state.itemIndex[state.catIndex];
-        var h = getItemHeight();
-        var regionH = dom.itemsRegion.clientHeight;
-        var center = (regionH / 2) - (h / 2);
-        dom.items.style.transform = 'translateY(' + (center - idx * h) + 'px)';
+    /* ═══════════════════════════════════════════════════════════
+       UPDATE POSITIONS — the core PS3 cross-scroll effect
+       ═══════════════════════════════════════════════════════════ */
 
-        var els = dom.items.children;
-        for (var i = 0; i < els.length; i++) {
-            var dist = Math.abs(i - idx);
-            var isSelected = i === idx;
-            els[i].style.opacity = isSelected ? 1 : Math.max(0.12, 0.5 - dist * 0.13);
-            if (isSelected) {
-                els[i].classList.add('xmb-item--selected');
-                els[i].setAttribute('aria-selected', 'true');
-            } else {
-                els[i].classList.remove('xmb-item--selected');
-                els[i].setAttribute('aria-selected', 'false');
+    function updatePositions() {
+        // 1. Shift bar horizontally to center active column
+        var centerX = window.innerWidth / 2;
+        var w = getCatWidth();
+        var offset = centerX - (state.catIndex * w) - (w / 2);
+        dom.bar.style.transform = 'translateX(' + offset + 'px)';
+
+        var cols = dom.bar.children;
+        var h = getItemHeight();
+
+        for (var c = 0; c < cols.length; c++) {
+            var isActive = c === state.catIndex;
+            var dist = Math.abs(c - state.catIndex);
+
+            cols[c].classList.toggle('active', isActive);
+            cols[c].style.opacity = isActive ? '' : Math.max(0.15, 0.5 - dist * 0.12);
+
+            var itemsDiv = cols[c].querySelector('.xmb-col-items');
+            var selIdx = state.itemIndex[c];
+            var items = itemsDiv.children;
+
+            for (var i = 0; i < items.length; i++) {
+                var rel = i - selIdx; // <0 scrolled past (above main), 0 selected (below main), >0 upcoming
+                var absRel = Math.abs(rel);
+
+                items[i].classList.toggle('selected', isActive && rel === 0);
+
+                // Main icon is anchored at y=0 and never moves.
+                // Sub-items skip y=0 entirely — main icon stands alone there.
+                // Extra breathing room below main so the selected sub isn't crowded.
+                var BELOW_MAIN_GAP = 36;
+                var y = rel < 0 ? rel * h : (rel + 1) * h + BELOW_MAIN_GAP;
+
+                if (rel === 0) {
+                    items[i].style.transform = 'translateY(' + y + 'px) scale(1)';
+                    items[i].style.opacity = isActive ? '1' : '0';
+                    items[i].style.zIndex = '50';
+                } else {
+                    var scale = Math.max(0.55, 0.85 - absRel * 0.1);
+                    var opacity = isActive ? Math.max(0.15, 0.6 - absRel * 0.15) : 0;
+                    items[i].style.transform =
+                        'translateY(' + y + 'px) scale(' + scale + ')';
+                    items[i].style.opacity = opacity;
+                    // Items above main icon (rel < 0) sit in front of it; closer = higher z.
+                    items[i].style.zIndex = rel < 0 ? (40 - absRel) : (30 - absRel);
+                }
             }
         }
     }
 
+    /* ═══════════════════════════════════════════════════════════
+       PREVIEW & WAVE COLORS
+       ═══════════════════════════════════════════════════════════ */
+
     function updatePreview() {
         var cat = CATEGORIES[state.catIndex];
-        var idx = state.itemIndex[state.catIndex];
-        var item = cat.items[idx];
+        var item = cat.items[state.itemIndex[state.catIndex]];
         dom.preview.textContent = item.preview || '';
     }
-
-    /* ═══════════════════════════════════════════════════════════
-       RENDERING — WAVE COLORS
-       ═══════════════════════════════════════════════════════════ */
 
     function updateWaveColors() {
         var colors = CATEGORIES[state.catIndex].waveColors;
@@ -471,9 +489,7 @@
 
     function openContent() {
         var cat = CATEGORIES[state.catIndex];
-        var idx = state.itemIndex[state.catIndex];
-        var item = cat.items[idx];
-
+        var item = cat.items[state.itemIndex[state.catIndex]];
         if (!item.getContent) return;
 
         state.contentOpen = true;
@@ -501,61 +517,45 @@
 
     function moveCategory(dir) {
         if (state.contentOpen || state.transitioning) return;
-
         var next = state.catIndex + dir;
         if (next < 0 || next >= CATEGORIES.length) return;
 
         state.transitioning = true;
         state.catIndex = next;
-
-        updateCategoryPositions();
-        updateCatLabel();
+        updatePositions();
         updateWaveColors();
-        renderItems();
-
-        setTimeout(function () {
-            state.transitioning = false;
-        }, TRANSITION_MS);
+        updatePreview();
+        setTimeout(function () { state.transitioning = false; }, TRANSITION_MS);
     }
 
     function moveItem(dir) {
         if (state.contentOpen || state.transitioning) return;
-
         var cat = CATEGORIES[state.catIndex];
         var idx = state.itemIndex[state.catIndex];
         var next = idx + dir;
         if (next < 0 || next >= cat.items.length) return;
 
         state.itemIndex[state.catIndex] = next;
-        updateItemPositions();
+        updatePositions();
         updatePreview();
     }
 
     /* ═══════════════════════════════════════════════════════════
-       KEYBOARD HANDLER
+       KEYBOARD
        ═══════════════════════════════════════════════════════════ */
 
     document.addEventListener('keydown', function (e) {
-        // Don't capture if user is typing in a form field
         var tag = e.target.tagName;
         if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return;
 
         switch (e.key) {
             case 'ArrowLeft':
                 e.preventDefault();
-                if (state.contentOpen) {
-                    closeContent();
-                } else {
-                    moveCategory(-1);
-                }
+                state.contentOpen ? closeContent() : moveCategory(-1);
                 break;
             case 'ArrowRight':
                 e.preventDefault();
-                if (state.contentOpen) {
-                    closeContent();
-                } else {
-                    moveCategory(1);
-                }
+                state.contentOpen ? closeContent() : moveCategory(1);
                 break;
             case 'ArrowUp':
                 e.preventDefault();
@@ -571,52 +571,51 @@
                 break;
             case 'Escape':
             case 'Backspace':
-                if (state.contentOpen) {
-                    e.preventDefault();
-                    closeContent();
-                }
+                if (state.contentOpen) { e.preventDefault(); closeContent(); }
                 break;
         }
     });
 
     /* ═══════════════════════════════════════════════════════════
-       MOUSE / CLICK HANDLERS
+       CLICK / TAP
        ═══════════════════════════════════════════════════════════ */
 
-    // Click on category icons
-    dom.categories.addEventListener('click', function (e) {
-        var catEl = e.target.closest('.xmb-cat');
-        if (!catEl || state.contentOpen) return;
-        var idx = parseInt(catEl.getAttribute('data-index'), 10);
-        if (idx === state.catIndex) return;
+    dom.bar.addEventListener('click', function (e) {
+        if (state.contentOpen) return;
 
-        state.transitioning = true;
-        state.catIndex = idx;
-        updateCategoryPositions();
-        updateCatLabel();
-        updateWaveColors();
-        renderItems();
-        setTimeout(function () { state.transitioning = false; }, TRANSITION_MS);
-    });
+        // Clicked on a sub-item?
+        var subItem = e.target.closest('.xmb-sub-item');
+        if (subItem) {
+            var catIdx = parseInt(subItem.getAttribute('data-cat'), 10);
+            var itemIdx = parseInt(subItem.getAttribute('data-item'), 10);
+            if (catIdx === state.catIndex) {
+                if (itemIdx === state.itemIndex[catIdx]) {
+                    openContent();
+                } else {
+                    state.itemIndex[catIdx] = itemIdx;
+                    updatePositions();
+                    updatePreview();
+                }
+            }
+            return;
+        }
 
-    // Click on items
-    dom.items.addEventListener('click', function (e) {
-        var itemEl = e.target.closest('.xmb-item');
-        if (!itemEl || state.contentOpen) return;
-        var idx = parseInt(itemEl.getAttribute('data-index'), 10);
-        if (idx !== state.itemIndex[state.catIndex]) {
-            state.itemIndex[state.catIndex] = idx;
-            updateItemPositions();
-            updatePreview();
-        } else {
-            openContent();
+        // Clicked on a column top (category switch)
+        var col = e.target.closest('.xmb-col');
+        if (col) {
+            var ci = parseInt(col.getAttribute('data-cat'), 10);
+            if (ci !== state.catIndex) {
+                state.transitioning = true;
+                state.catIndex = ci;
+                updatePositions();
+                updateWaveColors();
+                updatePreview();
+                setTimeout(function () { state.transitioning = false; }, TRANSITION_MS);
+            }
         }
     });
 
-    // Back button
-    dom.back.addEventListener('click', function () {
-        closeContent();
-    });
+    dom.back.addEventListener('click', function () { closeContent(); });
 
     /* ═══════════════════════════════════════════════════════════
        MOUSE WHEEL
@@ -626,10 +625,8 @@
 
     document.addEventListener('wheel', function (e) {
         if (state.contentOpen || state.transitioning || wheelLocked) return;
-
         var absX = Math.abs(e.deltaX);
         var absY = Math.abs(e.deltaY);
-
         if (absX < 15 && absY < 15) return;
 
         wheelLocked = true;
@@ -646,9 +643,7 @@
        TOUCH / SWIPE
        ═══════════════════════════════════════════════════════════ */
 
-    var touchStartX = 0;
-    var touchStartY = 0;
-    var touchStartTime = 0;
+    var touchStartX = 0, touchStartY = 0, touchStartTime = 0;
 
     dom.xmb.addEventListener('touchstart', function (e) {
         if (state.contentOpen) return;
@@ -660,55 +655,37 @@
 
     dom.xmb.addEventListener('touchend', function (e) {
         if (state.contentOpen) return;
-
         var t = e.changedTouches[0];
         var dx = t.clientX - touchStartX;
         var dy = t.clientY - touchStartY;
-        var dt = Date.now() - touchStartTime;
+        if (Date.now() - touchStartTime > 500) return;
 
-        // Only count swipes under 500ms
-        if (dt > 500) return;
-
-        var absDx = Math.abs(dx);
-        var absDy = Math.abs(dy);
-
+        var absDx = Math.abs(dx), absDy = Math.abs(dy);
         if (absDx < SWIPE_THRESHOLD && absDy < SWIPE_THRESHOLD) return;
 
         if (absDx > absDy) {
-            // Horizontal swipe
             moveCategory(dx > 0 ? -1 : 1);
         } else {
-            // Vertical swipe
             moveItem(dy > 0 ? -1 : 1);
         }
     }, { passive: true });
 
-    // Swipe back on content panel
     var contentTouchStartX = 0;
-
     dom.content.addEventListener('touchstart', function (e) {
         contentTouchStartX = e.touches[0].clientX;
     }, { passive: true });
-
     dom.content.addEventListener('touchend', function (e) {
-        var dx = e.changedTouches[0].clientX - contentTouchStartX;
-        // Swipe right to close
-        if (dx > 80) {
-            closeContent();
-        }
+        if (e.changedTouches[0].clientX - contentTouchStartX > 80) closeContent();
     }, { passive: true });
 
     /* ═══════════════════════════════════════════════════════════
-       WINDOW RESIZE
+       RESIZE
        ═══════════════════════════════════════════════════════════ */
 
     var resizeTimer = null;
     window.addEventListener('resize', function () {
         clearTimeout(resizeTimer);
-        resizeTimer = setTimeout(function () {
-            updateCategoryPositions();
-            updateItemPositions();
-        }, 100);
+        resizeTimer = setTimeout(updatePositions, 100);
     });
 
     /* ═══════════════════════════════════════════════════════════
@@ -717,19 +694,15 @@
 
     function updateClock() {
         var now = new Date();
-        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                      'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var h = now.getHours();
-        var m = now.getMinutes();
+        var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+        var h = now.getHours(), m = now.getMinutes();
         var ampm = h >= 12 ? 'PM' : 'AM';
         h = h % 12 || 12;
-        var timeStr = h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
-        var dateStr = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear();
-        dom.clock.textContent = dateStr + '  ' + timeStr;
+        dom.clock.textContent = months[now.getMonth()] + ' ' + now.getDate() + ', ' + now.getFullYear() + '  ' + h + ':' + (m < 10 ? '0' : '') + m + ' ' + ampm;
     }
 
     /* ═══════════════════════════════════════════════════════════
-       TYPEWRITER EFFECT
+       TYPEWRITER
        ═══════════════════════════════════════════════════════════ */
 
     function typeWriter(element, text, speed) {
@@ -745,12 +718,11 @@
     }
 
     /* ═══════════════════════════════════════════════════════════
-       INITIALIZATION
+       INIT
        ═══════════════════════════════════════════════════════════ */
 
     function init() {
-        renderCategories();
-        renderItems();
+        renderBar();
         updateWaveColors();
         updateClock();
         setInterval(updateClock, 30000);
