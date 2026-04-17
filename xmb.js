@@ -69,10 +69,17 @@
                     getContent: function () {
                         return '<div class="xc-about">' +
                             '<h2 class="xc-title">About Me</h2>' +
-                            '<div class="xc-about-photo">' +
-                                '<img src="images/FullSizeRender.jpg" alt="Stephan Leznikov">' +
+                            '<div class="xc-card xc-about-card">' +
+                                '<div class="xc-about-photo">' +
+                                    '<img src="images/FullSizeRender.jpg" alt="Stephan Leznikov">' +
+                                '</div>' +
+                                '<div class="xc-about-body">' +
+                                    '<h3>Stephan Leznikov</h3>' +
+                                    '<div class="xc-card-date">Computer Science &amp; AI, Queen\'s University</div>' +
+                                    '<p>Hello there! I\'m Stephan, a Computer Science and AI student at Queen\'s University with a hands-on approach to building intelligent systems. Currently, I\'m working as an AI/Machine Learning Intern at Kyndryl, where I designed and developed an AI-powered document validation and data extraction system that automated a client\'s mortgage application review process, effectively doubling their application throughput.</p>' +
+                                    '<p>From deep learning models and NLP pipelines to full-stack web apps, I love taking an idea from concept to production. I\'m always looking for the next challenging problem to solve, whether that\'s training a neural network, architecting a clean API, or collaborating with a team to ship something meaningful.</p>' +
+                                '</div>' +
                             '</div>' +
-                            '<p class="xc-about-text">Hello there! I\'m Stephan, a Computer Science and AI student at Queen\'s University with a hands-on approach to building intelligent systems. Currently, I\'m working as an AI/Machine Learning Intern at Kyndryl, where I designed and developed an AI-powered document validation and data extraction system that automated a client\'s mortgage application review process, effectively doubling their application throughput. From deep learning models and NLP pipelines to full-stack web apps, I love taking an idea from concept to production. I\'m always looking for the next challenging problem to solve, whether that\'s training a neural network, architecting a clean API, or collaborating with a team to ship something meaningful.</p>' +
                         '</div>';
                     }
                 },
@@ -80,7 +87,7 @@
                     id: 'experience',
                     icon: 'fa-solid fa-briefcase',
                     label: 'Experience',
-                    preview: 'Kyndryl \u2014 AI / Machine Learning Intern',
+                    preview: 'Kyndryl, AI / Machine Learning Intern',
                     getContent: function () {
                         return '<div>' +
                             '<h2 class="xc-title">Experience</h2>' +
@@ -130,7 +137,7 @@
                     id: 'education',
                     icon: 'fa-solid fa-graduation-cap',
                     label: 'Education',
-                    preview: 'Queen\'s University \u2014 B.Sc. Computer Science / AI',
+                    preview: 'Queen\'s University, B.Sc. Computer Science / AI',
                     getContent: function () {
                         return '<div>' +
                             '<h2 class="xc-title">Education</h2>' +
@@ -164,7 +171,7 @@
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">Document Validator &amp; Extractor</h2>' +
                             '<div class="xc-project-image"><img src="images/habitat.jpg" alt="Document Validator"></div>' +
-                            '<p class="xc-project-desc">AI-powered document validation and data extraction system built for a real-world client engagement at Kyndryl. The system is deployed on Azure Functions and automates the review of supporting documents submitted during mortgage applications \u2014 identifying document types, validating completeness, and extracting key data fields using a combination of OCR, NLP, and custom classification logic.</p>' +
+                            '<p class="xc-project-desc">AI-powered document validation and data extraction system built for a real-world client engagement at Kyndryl. The system is deployed on Azure Functions and automates the review of supporting documents submitted during mortgage applications, identifying document types, validating completeness, and extracting key data fields using a combination of OCR, NLP, and custom classification logic.</p>' +
                             '<p class="xc-project-desc">Extracted data is transmitted directly to Salesforce for centralized case management, eliminating manual data entry and significantly reducing turnaround times for application reviewers. The solution effectively doubled the client\u2019s mortgage application throughput.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">Azure Functions</span><span class="xc-tag">Python</span><span class="xc-tag">OCR</span><span class="xc-tag">NLP</span><span class="xc-tag">Salesforce</span></div>' +
                         '</div>';
@@ -197,7 +204,7 @@
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">Food Classifier</h2>' +
                             '<div class="xc-project-image"><img src="images/food classifier.jpg" alt="Food Classifier"></div>' +
-                            '<p class="xc-project-desc">A deep learning image classification model built using MobileNetV2 transfer learning to accurately identify and categorize 41 different food types with 85\u201390% accuracy. The model was trained on a large labeled dataset with extensive data augmentation techniques \u2014 including random rotation, flipping, zoom, and brightness adjustments \u2014 to improve generalization and reduce overfitting.</p>' +
+                            '<p class="xc-project-desc">A deep learning image classification model built using MobileNetV2 transfer learning to accurately identify and categorize 41 different food types with 85\u201390% accuracy. The model was trained on a large labeled dataset with extensive data augmentation techniques including random rotation, flipping, zoom, and brightness adjustments to improve generalization and reduce overfitting.</p>' +
                             '<p class="xc-project-desc">The training pipeline was optimized for GPU acceleration, with real-time performance monitoring through TensorBoard. The architecture leverages MobileNetV2\'s lightweight design, making it suitable for deployment on resource-constrained devices and mobile applications.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">TensorFlow</span><span class="xc-tag">MobileNetV2</span><span class="xc-tag">Transfer Learning</span><span class="xc-tag">Python</span><span class="xc-tag">TensorBoard</span></div>' +
                             '<a class="xc-project-link" href="https://github.com/sleznikov/food-classifier" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View on GitHub</a>' +
@@ -214,7 +221,7 @@
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">StatZone</h2>' +
                             '<div class="xc-project-image"><img src="images/Stocks-market.jpg" alt="StatZone"></div>' +
-                            '<p class="xc-project-desc">An intelligent sports analyst chatbot powered by the OpenAI API, designed to provide real-time insights into team performances, player statistics, historical matchups, and game strategies. Users can interact with the chatbot through natural language queries to get detailed breakdowns, comparisons, and predictions \u2014 making complex sports data accessible and conversational.</p>' +
+                            '<p class="xc-project-desc">An intelligent sports analyst chatbot powered by the OpenAI API, designed to provide real-time insights into team performances, player statistics, historical matchups, and game strategies. Users can interact with the chatbot through natural language queries to get detailed breakdowns, comparisons, and predictions, making complex sports data accessible and conversational.</p>' +
                             '<p class="xc-project-desc">The system integrates advanced machine learning models with live and historical data analytics to generate outcome predictions, identify trends, and surface non-obvious statistical patterns. Built with a focus on delivering fast, accurate, and contextually relevant responses to both casual fans and serious analysts.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">OpenAI API</span><span class="xc-tag">Python</span><span class="xc-tag">NLP</span><span class="xc-tag">Data Analytics</span><span class="xc-tag">Chatbot</span></div>' +
                             '<a class="xc-project-link" href="https://github.com/sleznikov/StatZone_OpenAI" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View on GitHub</a>' +
@@ -231,7 +238,7 @@
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">Sentiment Analysis</h2>' +
                             '<div class="xc-project-image"><img src="images/sentiment analysis.jpg" alt="Sentiment Analysis"></div>' +
-                            '<p class="xc-project-desc">An advanced natural language processing system that combines a Random Forest machine learning classifier with a sophisticated rule-based analysis engine for nuanced text sentiment classification. The hybrid approach allows the system to handle complex linguistic constructs that trip up purely statistical models \u2014 including negation detection (e.g., "not good"), intensity modifiers (e.g., "very," "slightly"), and context-dependent phrasing.</p>' +
+                            '<p class="xc-project-desc">An advanced natural language processing system that combines a Random Forest machine learning classifier with a sophisticated rule-based analysis engine for nuanced text sentiment classification. The hybrid approach allows the system to handle complex linguistic constructs that trip up purely statistical models, including negation detection (e.g., "not good"), intensity modifiers (e.g., "very," "slightly"), and context-dependent phrasing.</p>' +
                             '<p class="xc-project-desc">The system integrates a comprehensive sentiment lexicon and custom feature engineering pipeline to extract meaningful signals from raw text. It delivers accurate positive, negative, and neutral classifications across a variety of domains, from product reviews to social media posts.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">Python</span><span class="xc-tag">scikit-learn</span><span class="xc-tag">NLP</span><span class="xc-tag">Random Forest</span><span class="xc-tag">Feature Engineering</span></div>' +
                             '<a class="xc-project-link" href="https://github.com/sleznikov/sentiment-analysis-tool" target="_blank" rel="noopener"><i class="fa-brands fa-github"></i> View on GitHub</a>' +
@@ -445,7 +452,9 @@
                 // Sub-items skip y=0 entirely — main icon stands alone there.
                 // Extra breathing room below main so the selected sub isn't crowded.
                 var BELOW_MAIN_GAP = 36;
+                var BELOW_SELECTED_GAP = 28;
                 var y = rel < 0 ? rel * h : (rel + 1) * h + BELOW_MAIN_GAP;
+                if (rel > 0) y += BELOW_SELECTED_GAP;
 
                 if (rel === 0) {
                     items[i].style.transform = 'translateY(' + y + 'px) scale(1)';

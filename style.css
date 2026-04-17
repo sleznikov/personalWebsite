@@ -506,23 +506,63 @@ body {
 .xc-about {
     display: flex;
     flex-direction: column;
-    gap: 32px;
+}
+
+.xc-about-card {
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+    margin-top: 24px;
+    padding: 28px;
+}
+
+.xc-about-photo {
+    flex-shrink: 0;
 }
 
 .xc-about-photo img {
-    width: 100%;
-    max-width: 240px;
-    border-radius: 16px;
+    width: 200px;
+    border-radius: 12px;
     object-fit: cover;
     aspect-ratio: 3 / 4;
     filter: grayscale(10%);
+    display: block;
 }
 
-.xc-about-text {
-    font-size: 15px;
+.xc-about-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.xc-about-body h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.xc-about-body p {
+    font-size: 14px;
     line-height: 1.8;
     color: #999;
-    margin-top: 24px;
+    margin-top: 12px;
+}
+
+@media only screen and (max-width: 768px) {
+    .xc-about-card {
+        flex-direction: column;
+        align-items: center;
+        text-align: left;
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .xc-about-photo img {
+        width: 160px;
+    }
+
+    .xc-about-body {
+        width: 100%;
+    }
 }
 
 /* Card */
