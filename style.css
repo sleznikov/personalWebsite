@@ -52,11 +52,15 @@ body {
     z-index: 0;
 }
 
-.xmb-bg-image {
+.xmb-bg-video {
     position: absolute;
     inset: 0;
-    background: url(images/philip-myrtorp-w7M4oUyQLDE-unsplash.jpg) center / cover no-repeat;
-    opacity: 0.35;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: hue-rotate(0deg);
+    transition: filter 1s linear;
+    pointer-events: none;
 }
 
 .xmb-bg-overlay {
@@ -862,10 +866,6 @@ body {
    ══════════════════════════════════════════════════════════ */
 
 @media only screen and (max-width: 768px) {
-    .xmb-bg-image {
-        background-image: url(images/istockphoto-542171472-170667a.webp);
-    }
-
     .xmb-header {
         padding: 14px 20px;
         font-size: 13px;

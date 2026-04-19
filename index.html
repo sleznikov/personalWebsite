@@ -3,7 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Stephan Leznikov</title>
+    <title>Stephan Leznikov – AI Engineer &amp; Developer</title>
+    <meta name="description" content="Personal portfolio of Stephan Leznikov — Computer Science &amp; AI student at Queen's University and AI/ML Intern at Kyndryl.">
+    <link rel="canonical" href="https://stephan.leznikov.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Stephan Leznikov – AI Engineer &amp; Developer">
+    <meta property="og:description" content="Personal portfolio of Stephan Leznikov — Computer Science &amp; AI student at Queen's University and AI/ML Intern at Kyndryl.">
+    <meta property="og:url" content="https://stephan.leznikov.com/">
+    <meta property="og:image" content="https://stephan.leznikov.com/images/SL%20Logo.png">
+    <meta name="twitter:card" content="summary">
+    <script>
+        // SPA fallback decoder — pairs with 404.html to rewrite `/?/path` → `/path`
+        (function (l) {
+            if (l.search && l.search[1] === '/') {
+                var decoded = l.search.slice(1).split('&').map(function (s) {
+                    return s.replace(/~and~/g, '&');
+                }).join('?');
+                window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash);
+            }
+        }(window.location));
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -14,7 +33,9 @@
     <div id="xmb">
         <!-- Background layers -->
         <div class="xmb-bg" aria-hidden="true">
-            <div class="xmb-bg-image"></div>
+            <video class="xmb-bg-video" id="xmb-bg-video" autoplay muted loop playsinline preload="auto">
+                <source src="background videos/PS3 XMP Wave - Blue (Blender Recreation).mp4" type="video/mp4">
+            </video>
             <div class="xmb-bg-overlay"></div>
             <div class="xmb-bg-wave xmb-wave-1"></div>
             <div class="xmb-bg-wave xmb-wave-2"></div>

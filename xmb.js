@@ -363,8 +363,119 @@
         cross: document.getElementById('xmb-cross'),
         back: document.getElementById('xmb-back'),
         clock: document.getElementById('xmb-clock'),
-        preview: document.getElementById('xmb-preview')
+        preview: document.getElementById('xmb-preview'),
+        bgVideo: document.getElementById('xmb-bg-video')
     };
+
+    function applyRandomHue() {
+        if (!dom.bgVideo) return;
+        var deg = Math.floor(Math.random() * 360);
+        dom.bgVideo.style.filter = 'hue-rotate(' + deg + 'deg)';
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ROUTING — deep linking via History API
+       ═══════════════════════════════════════════════════════════ */
+
+    var SITE_TITLE = 'Stephan Leznikov';
+    var HOME_TITLE = 'Stephan Leznikov – AI Engineer & Developer';
+    var HOME_DESC = 'Personal portfolio of Stephan Leznikov — Computer Science & AI student at Queen\'s University and AI/ML Intern at Kyndryl.';
+
+    function findCategoryIndex(slug) {
+        if (!slug) return -1;
+        for (var i = 0; i < CATEGORIES.length; i++) {
+            if (CATEGORIES[i].id === slug) return i;
+        }
+        return -1;
+    }
+
+    function findItemIndex(catIdx, slug) {
+        if (!slug || catIdx < 0) return -1;
+        var items = CATEGORIES[catIdx].items;
+        for (var i = 0; i < items.length; i++) {
+            if (items[i].id === slug) return i;
+        }
+        return -1;
+    }
+
+    function currentRoute() {
+        var cat = CATEGORIES[state.catIndex];
+        var item = cat.items[state.itemIndex[state.catIndex]];
+        if (state.contentOpen) return '/' + cat.id + '/' + item.id;
+        if (state.catIndex === 0) return '/';
+        return '/' + cat.id;
+    }
+
+    function setAttrIfEl(selector, attr, value) {
+        var el = document.querySelector(selector);
+        if (el) el.setAttribute(attr, value);
+    }
+
+    function updateMeta() {
+        var cat = CATEGORIES[state.catIndex];
+        var item = cat.items[state.itemIndex[state.catIndex]];
+        var title, desc;
+        if (state.contentOpen) {
+            title = item.label + ' – ' + cat.label + ' | ' + SITE_TITLE;
+            desc = item.preview || (SITE_TITLE + ' – ' + item.label);
+        } else if (state.catIndex === 0) {
+            title = HOME_TITLE;
+            desc = HOME_DESC;
+        } else {
+            title = cat.label + ' | ' + SITE_TITLE;
+            desc = SITE_TITLE + ' – ' + cat.label + ' section of personal portfolio.';
+        }
+        document.title = title;
+        setAttrIfEl('meta[name="description"]', 'content', desc);
+        setAttrIfEl('meta[property="og:title"]', 'content', title);
+        setAttrIfEl('meta[property="og:description"]', 'content', desc);
+        setAttrIfEl('meta[property="og:url"]', 'content', window.location.origin + currentRoute());
+        setAttrIfEl('link[rel="canonical"]', 'href', window.location.origin + currentRoute());
+    }
+
+    function syncUrl(push) {
+        var path = currentRoute();
+        updateMeta();
+        if (window.location.pathname === path) return;
+        var target = path + window.location.search + window.location.hash;
+        var s = { cat: state.catIndex, item: state.itemIndex[state.catIndex], open: state.contentOpen };
+        try {
+            if (push) window.history.pushState(s, '', target);
+            else window.history.replaceState(s, '', target);
+        } catch (e) {}
+    }
+
+    function applyRoute(path) {
+        var clean = path || '/';
+        var parts = clean.replace(/^\/+|\/+$/g, '').split('/').filter(Boolean);
+        var catSlug = parts[0] || 'home';
+        var itemSlug = parts[1] || '';
+
+        var ci = findCategoryIndex(catSlug);
+        if (ci === -1) ci = 0;
+        state.catIndex = ci;
+
+        var wantOpen = false;
+        if (itemSlug) {
+            var ii = findItemIndex(ci, itemSlug);
+            if (ii !== -1) {
+                state.itemIndex[ci] = ii;
+                wantOpen = true;
+            }
+        }
+
+        updatePositions();
+        updateWaveColors();
+        updatePreview();
+
+        if (wantOpen) {
+            openContent({ skipUrl: true });
+        } else if (state.contentOpen) {
+            closeContent({ skipUrl: true });
+        }
+
+        updateMeta();
+    }
 
     /* ═══════════════════════════════════════════════════════════
        RESPONSIVE HELPERS
@@ -514,7 +625,7 @@
        CONTENT PANEL
        ═══════════════════════════════════════════════════════════ */
 
-    function openContent() {
+    function openContent(opts) {
         var cat = CATEGORIES[state.catIndex];
         var item = cat.items[state.itemIndex[state.catIndex]];
         if (!item.getContent) return;
@@ -529,13 +640,17 @@
         if (item.onOpen) {
             setTimeout(item.onOpen, 100);
         }
+
+        if (!opts || !opts.skipUrl) syncUrl(true);
     }
 
-    function closeContent() {
+    function closeContent(opts) {
         state.contentOpen = false;
         dom.content.classList.remove('open');
         dom.content.setAttribute('aria-hidden', 'true');
         dom.cross.classList.remove('shifted');
+
+        if (!opts || !opts.skipUrl) syncUrl(true);
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -552,6 +667,8 @@
         updatePositions();
         updateWaveColors();
         updatePreview();
+        applyRandomHue();
+        syncUrl(false);
         setTimeout(function () { state.transitioning = false; }, TRANSITION_MS);
     }
 
@@ -565,6 +682,7 @@
         state.itemIndex[state.catIndex] = next;
         updatePositions();
         updatePreview();
+        applyRandomHue();
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -622,6 +740,7 @@
                     state.itemIndex[catIdx] = itemIdx;
                     updatePositions();
                     updatePreview();
+                    applyRandomHue();
                 }
             }
             return;
@@ -637,6 +756,8 @@
                 updatePositions();
                 updateWaveColors();
                 updatePreview();
+                applyRandomHue();
+                syncUrl(false);
                 setTimeout(function () { state.transitioning = false; }, TRANSITION_MS);
             }
         }
@@ -748,9 +869,14 @@
        INIT
        ═══════════════════════════════════════════════════════════ */
 
+    window.addEventListener('popstate', function () {
+        applyRoute(window.location.pathname);
+    });
+
     function init() {
         renderBar();
-        updateWaveColors();
+        applyRoute(window.location.pathname);
+        syncUrl(false);
         updateClock();
         setInterval(updateClock, 30000);
     }
