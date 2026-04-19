@@ -682,7 +682,6 @@
         state.itemIndex[state.catIndex] = next;
         updatePositions();
         updatePreview();
-        applyRandomHue();
     }
 
     /* ═══════════════════════════════════════════════════════════
@@ -740,7 +739,6 @@
                     state.itemIndex[catIdx] = itemIdx;
                     updatePositions();
                     updatePreview();
-                    applyRandomHue();
                 }
             }
             return;
