@@ -1,6 +1,16 @@
 (function () {
     'use strict';
 
+    // One-shot retry for images that fail on first load (flaky CDN / cold cache).
+    document.addEventListener('error', function (e) {
+        var el = e.target;
+        if (!el || el.tagName !== 'IMG' || el.dataset.retried) return;
+        el.dataset.retried = '1';
+        var src = el.src;
+        var sep = src.indexOf('?') === -1 ? '?' : '&';
+        setTimeout(function () { el.src = src + sep + 'r=' + Date.now(); }, 400);
+    }, true);
+
     /* ═══════════════════════════════════════════════════════════
        CONFIGURATION
        ═══════════════════════════════════════════════════════════ */
@@ -215,13 +225,13 @@
                 {
                     id: 'foodclassifier',
                     icon: 'fa-solid fa-utensils',
-                    thumb: 'images/food classifier.jpg',
+                    thumb: 'images/food-classifier.jpg',
                     label: 'Food Classifier',
                     preview: 'Deep learning model classifying 41 food categories with 85-90% accuracy',
                     getContent: function () {
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">Food Classifier</h2>' +
-                            '<div class="xc-project-image"><img src="images/food classifier.jpg" alt="Food Classifier"></div>' +
+                            '<div class="xc-project-image"><img src="images/food-classifier.jpg" alt="Food Classifier"></div>' +
                             '<p class="xc-project-desc">A deep learning image classification model built using MobileNetV2 transfer learning to accurately identify and categorize 41 different food types with 85\u201390% accuracy. The model was trained on a large labeled dataset with extensive data augmentation techniques including random rotation, flipping, zoom, and brightness adjustments to improve generalization and reduce overfitting.</p>' +
                             '<p class="xc-project-desc">The training pipeline was optimized for GPU acceleration, with real-time performance monitoring through TensorBoard. The architecture leverages MobileNetV2\'s lightweight design, making it suitable for deployment on resource-constrained devices and mobile applications.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">TensorFlow</span><span class="xc-tag">MobileNetV2</span><span class="xc-tag">Transfer Learning</span><span class="xc-tag">Python</span><span class="xc-tag">TensorBoard</span></div>' +
@@ -249,13 +259,13 @@
                 {
                     id: 'sentiment',
                     icon: 'fa-solid fa-brain',
-                    thumb: 'images/sentiment analysis.jpg',
+                    thumb: 'images/sentiment-analysis.jpg',
                     label: 'Sentiment Analysis',
                     preview: 'Advanced NLP system combining Random Forest ML with rule-based analysis',
                     getContent: function () {
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">Sentiment Analysis</h2>' +
-                            '<div class="xc-project-image"><img src="images/sentiment analysis.jpg" alt="Sentiment Analysis"></div>' +
+                            '<div class="xc-project-image"><img src="images/sentiment-analysis.jpg" alt="Sentiment Analysis"></div>' +
                             '<p class="xc-project-desc">An advanced natural language processing system that combines a Random Forest machine learning classifier with a sophisticated rule-based analysis engine for nuanced text sentiment classification. The hybrid approach allows the system to handle complex linguistic constructs that trip up purely statistical models, including negation detection (e.g., "not good"), intensity modifiers (e.g., "very," "slightly"), and context-dependent phrasing.</p>' +
                             '<p class="xc-project-desc">The system integrates a comprehensive sentiment lexicon and custom feature engineering pipeline to extract meaningful signals from raw text. It delivers accurate positive, negative, and neutral classifications across a variety of domains, from product reviews to social media posts.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">Python</span><span class="xc-tag">scikit-learn</span><span class="xc-tag">NLP</span><span class="xc-tag">Random Forest</span><span class="xc-tag">Feature Engineering</span></div>' +
@@ -266,13 +276,13 @@
                 {
                     id: 'platformer',
                     icon: 'fa-solid fa-gamepad',
-                    thumb: 'images/unity game.png',
+                    thumb: 'images/unity-game.png',
                     label: '2D Platformer',
                     preview: 'A 2D platformer game built with Unity and C#',
                     getContent: function () {
                         return '<div class="xc-project">' +
                             '<h2 class="xc-title">2D Platformer</h2>' +
-                            '<div class="xc-project-image"><img src="images/unity game.png" alt="2D Platformer"></div>' +
+                            '<div class="xc-project-image"><img src="images/unity-game.png" alt="2D Platformer"></div>' +
                             '<p class="xc-project-desc">A fully playable 2D platformer game developed in Unity with C#, featuring hand-crafted levels, responsive character controls, and custom shader effects that bring the game world to life. The project demonstrates core game development principles including physics-based movement, collision detection, sprite animation state machines, and camera tracking.</p>' +
                             '<p class="xc-project-desc">Platform mechanics include moving platforms, interactive hazards, collectible items, and a scoring system. Custom shaders were written to achieve unique visual effects, adding depth and atmosphere to the pixel-art style environment.</p>' +
                             '<div class="xc-project-tags"><span class="xc-tag">Unity</span><span class="xc-tag">C#</span><span class="xc-tag">Game Development</span><span class="xc-tag">Shader Programming</span></div>' +
