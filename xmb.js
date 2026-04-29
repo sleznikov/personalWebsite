@@ -377,10 +377,11 @@
         bgVideo: document.getElementById('xmb-bg-video')
     };
 
+    var hueDeg = 0;
     function applyRandomHue() {
         if (!dom.bgVideo) return;
-        var deg = Math.floor(Math.random() * 360);
-        dom.bgVideo.style.filter = 'hue-rotate(' + deg + 'deg)';
+        hueDeg += 45;
+        dom.bgVideo.style.filter = 'hue-rotate(' + hueDeg + 'deg)';
     }
 
     /* ═══════════════════════════════════════════════════════════
