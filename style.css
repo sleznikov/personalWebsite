@@ -938,3 +938,103 @@ body {
     .xmb-sub-icon { font-size: 32px; }
     .xmb-sub-item.selected .xmb-sub-icon { font-size: 42px; }
 }
+
+/* ══════════════════════════════════════════════════════════
+   LOADER
+   ══════════════════════════════════════════════════════════ */
+
+#xmb-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background:
+        radial-gradient(ellipse at 50% 50%, rgba(3, 207, 252, 0.08) 0%, transparent 60%),
+        #080810;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 1;
+    transition: opacity 0.7s ease;
+}
+
+#xmb-loader.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.xmb-loader-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 36px;
+}
+
+.xmb-loader-logo-wrap {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.xmb-loader-logo-wrap::before {
+    content: '';
+    position: absolute;
+    width: 220px;
+    height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(3, 207, 252, 0.18) 0%, transparent 65%);
+    animation: loaderGlow 2.4s ease-in-out infinite;
+}
+
+.xmb-loader-logo {
+    position: relative;
+    width: 130px;
+    height: auto;
+    animation: loaderPulse 2.4s ease-in-out infinite;
+    filter: drop-shadow(0 0 18px rgba(3, 207, 252, 0.45));
+}
+
+@keyframes loaderPulse {
+    0%, 100% { opacity: 0.75; transform: scale(1); }
+    50%      { opacity: 1;    transform: scale(1.04); }
+}
+
+@keyframes loaderGlow {
+    0%, 100% { opacity: 0.5; transform: scale(0.9); }
+    50%      { opacity: 1;   transform: scale(1.1); }
+}
+
+.xmb-loader-bar {
+    width: 200px;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.08);
+    border-radius: 1px;
+    overflow: hidden;
+    position: relative;
+}
+
+.xmb-loader-bar-fill {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        rgba(3, 207, 252, 0.9) 50%,
+        transparent 100%
+    );
+    animation: loaderSlide 1.5s ease-in-out infinite;
+}
+
+@keyframes loaderSlide {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(350%); }
+}
+
+@media only screen and (max-width: 480px) {
+    .xmb-loader-logo { width: 100px; }
+    .xmb-loader-logo-wrap::before { width: 170px; height: 170px; }
+    .xmb-loader-bar { width: 160px; }
+}

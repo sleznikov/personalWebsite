@@ -888,6 +888,58 @@
         syncUrl(false);
         updateClock();
         setInterval(updateClock, 30000);
+        waitForAssetsThenReveal();
+    }
+
+    function waitForAssetsThenReveal() {
+        var loader = document.getElementById('xmb-loader');
+        if (!loader) return;
+
+        var MIN_DISPLAY_MS = 700;
+        var MAX_WAIT_MS = 6000;
+        var startedAt = Date.now();
+
+        function once(target, evt) {
+            return new Promise(function (resolve) {
+                target.addEventListener(evt, function handler() {
+                    target.removeEventListener(evt, handler);
+                    resolve();
+                });
+            });
+        }
+
+        var windowLoad = document.readyState === 'complete'
+            ? Promise.resolve()
+            : once(window, 'load');
+
+        var fontsReady = (document.fonts && document.fonts.ready)
+            ? document.fonts.ready
+            : Promise.resolve();
+
+        var videoReady = new Promise(function (resolve) {
+            var v = dom.bgVideo;
+            if (!v) return resolve();
+            if (v.readyState >= 3) return resolve();
+            var done = false;
+            function finish() { if (!done) { done = true; resolve(); } }
+            v.addEventListener('canplay', finish, { once: true });
+            v.addEventListener('loadeddata', finish, { once: true });
+            v.addEventListener('error', finish, { once: true });
+        });
+
+        var ready = Promise.all([windowLoad, fontsReady, videoReady]);
+        var maxWait = new Promise(function (r) { setTimeout(r, MAX_WAIT_MS); });
+
+        Promise.race([ready, maxWait]).then(function () {
+            var elapsed = Date.now() - startedAt;
+            var remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
+            setTimeout(function () {
+                loader.classList.add('hidden');
+                setTimeout(function () {
+                    if (loader.parentNode) loader.parentNode.removeChild(loader);
+                }, 800);
+            }, remaining);
+        });
     }
 
     init();
