@@ -888,7 +888,82 @@
         syncUrl(false);
         updateClock();
         setInterval(updateClock, 30000);
+        setupIntroState();
         waitForAssetsThenReveal();
+    }
+
+    var introArmed = false;
+
+    function setupIntroState() {
+        if (state.contentOpen) return; // deep-link landed on a content page; skip intro
+        var cols = dom.bar.children;
+        var w = getCatWidth();
+        var activeIdx = state.catIndex;
+        for (var c = 0; c < cols.length; c++) {
+            cols[c].style.transition = 'none';
+            if (c === activeIdx) {
+                cols[c].style.transform = 'scale(0.5)';
+            } else {
+                var fromX = -(c - activeIdx) * w;
+                cols[c].style.transform = 'translateX(' + fromX + 'px) scale(0.2)';
+            }
+            cols[c].style.opacity = '0';
+        }
+        if (dom.preview) dom.preview.style.opacity = '0';
+        introArmed = true;
+    }
+
+    function playIntroAnimation() {
+        if (!introArmed) return;
+        introArmed = false;
+        var cols = dom.bar.children;
+        var activeIdx = state.catIndex;
+
+        // Force reflow so the transition kicks in from the from-state.
+        void dom.bar.offsetWidth;
+
+        var HOME_DUR = 450;
+        var FLY_DUR = 650;
+        var STAGGER = 110;
+
+        // Home icon: scale up first.
+        var home = cols[activeIdx];
+        home.style.transition = 'transform ' + HOME_DUR + 'ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity ' + HOME_DUR + 'ms ease-out';
+        home.style.transform = '';
+        home.style.opacity = '1';
+
+        // Other categories: fly out of the home position, staggered by distance.
+        for (var c = 0; c < cols.length; c++) {
+            if (c === activeIdx) continue;
+            (function (col, idx) {
+                var dist = Math.abs(idx - activeIdx);
+                var delay = HOME_DUR * 0.55 + (dist - 1) * STAGGER;
+                setTimeout(function () {
+                    col.style.transition = 'transform ' + FLY_DUR + 'ms cubic-bezier(0.2, 0.8, 0.2, 1), opacity ' + (FLY_DUR - 100) + 'ms ease-out';
+                    col.style.transform = '';
+                    col.style.opacity = String(Math.max(0.15, 0.5 - dist * 0.12));
+                }, delay);
+            })(cols[c], c);
+        }
+
+        // Preview text fades in once icons are settling.
+        setTimeout(function () {
+            if (dom.preview) {
+                dom.preview.style.transition = 'opacity 500ms ease-out';
+                dom.preview.style.opacity = '';
+            }
+        }, HOME_DUR * 0.55 + (cols.length - 1) * STAGGER);
+
+        // Cleanup: drop inline overrides so updatePositions can take over again.
+        var totalTime = HOME_DUR * 0.55 + (cols.length - 1) * STAGGER + FLY_DUR + 60;
+        setTimeout(function () {
+            for (var c = 0; c < cols.length; c++) {
+                cols[c].style.transition = '';
+                cols[c].style.transform = '';
+            }
+            if (dom.preview) dom.preview.style.transition = '';
+            updatePositions();
+        }, totalTime);
     }
 
     function waitForAssetsThenReveal() {
@@ -935,6 +1010,7 @@
             var remaining = Math.max(0, MIN_DISPLAY_MS - elapsed);
             setTimeout(function () {
                 loader.classList.add('hidden');
+                playIntroAnimation();
                 setTimeout(function () {
                     if (loader.parentNode) loader.parentNode.removeChild(loader);
                 }, 800);
